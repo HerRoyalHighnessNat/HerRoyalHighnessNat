@@ -1,0 +1,19 @@
+def punto_fijo(funcion, punto_inicial, tolerancia=1e-6, max_iteraciones=100):
+    punto_anterior = None
+    
+    for i in range(max_iteraciones):
+        nuevo_punto = funcion(punto_inicial)
+        
+        if abs(nuevo_punto - punto_inicial) < tolerancia:
+            error = abs(nuevo_punto - punto_anterior)
+            return nuevo_punto, error
+        
+        if i > 0:
+            error_absoluto = abs((nuevo_punto - punto_anterior) / nuevo_punto)
+            if error_absoluto < tolerancia:
+                return nuevo_punto, round(error_absoluto, 3)
+            
+        punto_anterior = nuevo_punto
+        punto_inicial = nuevo_punto
+        
+    raise ValueError("No converge.")}
